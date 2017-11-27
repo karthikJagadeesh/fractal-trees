@@ -14,7 +14,7 @@ const config = {
   devServer: {
     contentBase: "dist"
   },
-  // devtool: "eval-cheap-module-source-map" 
+  devtool: "source-map" 
 };
 
 module.exports = config;
