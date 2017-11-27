@@ -6,23 +6,33 @@ const app = p => {
     p.background(0);
 
     p.translate(p.width / 2, p.height);
-    drawBranch(p.TWO_PI, -200, 20);
+    drawBranch(p.TWO_PI, -200, 20, 10);
   };
 
   p.draw = _ => {};
 
-  function drawBranch(degrees, offsetY, branchThickness) {   
+  function drawBranch(degrees, offsetY, branchThickness, color) {
     p.rotate(degrees);
-    p.stroke(p.random(255), p.random(255), p.random(255));
+    p.stroke(color);
     p.strokeWeight(branchThickness);
     p.line(0, 0, 0, offsetY);
     p.translate(0, offsetY);
     if (offsetY < -4) {
       p.push();
-      drawBranch(p.PI / 6, offsetY * 0.67, branchThickness * 0.71);
+      drawBranch(
+        p.PI / 6,
+        offsetY * 0.67,
+        branchThickness * 0.71,
+        (color = color * 1.18)
+      );
       p.pop();
       p.push();
-      drawBranch(p.PI / -6, offsetY * 0.67, branchThickness * 0.71);
+      drawBranch(
+        p.PI / -6,
+        offsetY * 0.67,
+        branchThickness * 0.71,
+        (color = color * 1.18)
+      );
       p.pop();
     }
   }
