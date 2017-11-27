@@ -21,7 +21,7 @@ const app = p => {
       p.push();
       drawBranch(
         p.PI / 6,
-        offsetY * 0.67,
+        offsetY * 0.81,
         branchThickness * 0.71,
         (color = color * 1.13)
       );
@@ -34,6 +34,10 @@ const app = p => {
         (color = color * 1.13)
       );
       p.pop();
+    }
+    if (offsetY > -4) {
+      p.fill(196, p.random(255), p.random(55));
+      p.random(100) >= 90 ? p.ellipse(0, 0, 3, 3) : void(0);
     }
   }
 };
