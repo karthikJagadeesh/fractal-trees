@@ -6,7 +6,7 @@ const app = p => {
     p.background(0);
 
     p.translate(p.width / 2, p.height);
-    drawBranch(p.TWO_PI, -200, 20, 10);
+    drawBranch(p.TWO_PI, -200, 20, 50);
   };
 
   p.draw = _ => {};
@@ -23,7 +23,7 @@ const app = p => {
         p.PI / 6,
         offsetY * 0.67,
         branchThickness * 0.71,
-        (color = color * 1.18)
+        (color = color * 1.13)
       );
       p.pop();
       p.push();
@@ -31,7 +31,7 @@ const app = p => {
         p.PI / -6,
         offsetY * 0.67,
         branchThickness * 0.71,
-        (color = color * 1.18)
+        (color = color * 1.13)
       );
       p.pop();
     }
