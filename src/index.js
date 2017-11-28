@@ -8,27 +8,63 @@ const appBack = p => {
   let startColor;
   let endColor;
 
+  let stars = [];
+
+  const showMoon = _ => {
+    p.noStroke();
+    p.fill(252, 246, 234);
+    p.ellipse(150, 150, 180, 180);
+  }
+
+  class Star {
+    constructor(size, color, posx, posy) {
+      this.size = size;
+      this.color = color;
+      this.posx = posx;
+      this.posy = posy;
+    }
+
+    show() {
+      p.noStroke();
+      p.fill(this.color);
+      p.ellipse(this.posx, this.posy, this.size);
+    }
+
+  }
+
   p.setup = _ => {
     p.createCanvas(p.windowWidth, p.windowHeight);
     startColor = p.color(96, 64, 119);
     endColor = p.color(8, 1, 10);
-    shootingStarPosY = p.random(p.height);
+    shootingStarPosY = p.random(p.height / 3);
 
     drawSky();
-    // p.translate(p.width / 2, p.height + 10);
-    // drawBranch(p.TWO_PI, -200, 80, [25, 14, 4]);
+
+    for (let i = 0; i < 250; i++) {
+      let starPosY = p.random(p.height / 1.56);
+      let starColor = [252, 246, 234, 100]; 
+      if (i > 400) {
+        starColor = [252, 246, 234, 0.8];
+      }           
+      let starSize = p.random(1, 4);
+      let starPosX = p.random(p.width);
+      stars.push(new Star(starSize, starColor, starPosX, starPosY));
+    }
+
+    showMoon();
+
   };
 
   p.draw = _ => {
-    if (shootingStarSpeedTrail > p.width + 10) {
-      shootingStarPosY = p.random(p.height);
-      shootingStarSpeed = 1;
-      shootingStarSpeedTrail = -50;
-    }
+    stars.forEach(star => {
+      // star.twinkle();
+      star.show();
+    });
+
     p.noStroke();
     p.fill(226, 197, 247);
     p.ellipse(
-      (shootingStarSpeed = shootingStarSpeed + 2),
+      (shootingStarSpeed = shootingStarSpeed + 0.1),
       shootingStarPosY,
       94,
       2
@@ -38,7 +74,7 @@ const appBack = p => {
     const exactBackgroundColor = p.lerpColor(startColor, endColor, lerpValue);
     p.fill(exactBackgroundColor);
     p.ellipse(
-      (shootingStarSpeedTrail = shootingStarSpeedTrail + 2),
+      (shootingStarSpeedTrail = shootingStarSpeedTrail + 0.1),
       shootingStarPosY,
       64,
       2
@@ -62,7 +98,7 @@ const appFront = p => {
   p.setup = _ => {
     let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
-    p.translate(p.width / 2, p.height - 20);
+    p.translate(p.width / 2, p.height);
     drawBranch(p.TWO_PI, -200, 80, [25, 14, 4]);
   };
 
