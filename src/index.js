@@ -2,10 +2,6 @@ import p5 from "p5";
 import { setTimeout } from "core-js/library/web/timers";
 
 const appBack = p => {
-  let shootingStarSpeed = -100;
-  let shootingStarSpeedTrail = shootingStarSpeed - 50;
-  let shootingStarPosY;
-
   let startColor;
   let endColor;
 
@@ -36,7 +32,6 @@ const appBack = p => {
     p.createCanvas(p.windowWidth, p.windowHeight);
     startColor = p.color(96, 64, 119);
     endColor = p.color(8, 1, 10);
-    shootingStarPosY = p.random(p.height / 3);
 
     drawSky();
 
@@ -56,34 +51,8 @@ const appBack = p => {
 
   p.draw = _ => {
     stars.forEach(star => {
-      // star.twinkle();
       star.show();
     });
-
-    p.noStroke();
-    p.fill(226, 197, 247);
-    p.ellipse(
-      (shootingStarSpeed = shootingStarSpeed + 60),
-      shootingStarPosY,
-      94,
-      2
-    );
-
-    const lerpValue = p.map(shootingStarPosY, 0, p.height, 0, 1);
-    const exactBackgroundColor = p.lerpColor(startColor, endColor, lerpValue);
-    p.fill(exactBackgroundColor);
-    p.ellipse(
-      (shootingStarSpeedTrail = shootingStarSpeedTrail + 60),
-      shootingStarPosY,
-      64,
-      2
-    );
-
-    if (shootingStarSpeed > p.width) {
-      shootingStarPosY = p.random(p.height / 3);
-      shootingStarSpeed = -Math.pow(10, 5);
-      shootingStarSpeedTrail = shootingStarSpeed - 50;
-    }
   };
 
   function drawSky() {
