@@ -1,8 +1,9 @@
 import p5 from "p5";
+import { setTimeout } from "core-js/library/web/timers";
 
 const appBack = p => {
-  let shootingStarSpeed = 1;
-  let shootingStarSpeedTrail = -50;
+  let shootingStarSpeed = -100;
+  let shootingStarSpeedTrail = shootingStarSpeed - 50;
   let shootingStarPosY;
 
   let startColor;
@@ -14,7 +15,7 @@ const appBack = p => {
     p.noStroke();
     p.fill(252, 246, 234);
     p.ellipse(150, 150, 180, 180);
-  }
+  };
 
   class Star {
     constructor(size, color, posx, posy) {
@@ -29,7 +30,6 @@ const appBack = p => {
       p.fill(this.color);
       p.ellipse(this.posx, this.posy, this.size);
     }
-
   }
 
   p.setup = _ => {
@@ -42,17 +42,16 @@ const appBack = p => {
 
     for (let i = 0; i < 250; i++) {
       let starPosY = p.random(p.height / 1.56);
-      let starColor = [252, 246, 234, 100]; 
+      let starColor = [252, 246, 234, 100];
       if (i > 400) {
         starColor = [252, 246, 234, 0.8];
-      }           
+      }
       let starSize = p.random(1, 4);
       let starPosX = p.random(p.width);
       stars.push(new Star(starSize, starColor, starPosX, starPosY));
     }
 
     showMoon();
-
   };
 
   p.draw = _ => {
@@ -64,7 +63,7 @@ const appBack = p => {
     p.noStroke();
     p.fill(226, 197, 247);
     p.ellipse(
-      (shootingStarSpeed = shootingStarSpeed + 0.1),
+      (shootingStarSpeed = shootingStarSpeed + 60),
       shootingStarPosY,
       94,
       2
@@ -74,11 +73,17 @@ const appBack = p => {
     const exactBackgroundColor = p.lerpColor(startColor, endColor, lerpValue);
     p.fill(exactBackgroundColor);
     p.ellipse(
-      (shootingStarSpeedTrail = shootingStarSpeedTrail + 0.1),
+      (shootingStarSpeedTrail = shootingStarSpeedTrail + 60),
       shootingStarPosY,
       64,
       2
     );
+
+    if (shootingStarSpeed > p.width) {
+      shootingStarPosY = p.random(p.height / 3);
+      shootingStarSpeed = -Math.pow(10, 5);
+      shootingStarSpeedTrail = shootingStarSpeed - 50;
+    }
   };
 
   function drawSky() {
