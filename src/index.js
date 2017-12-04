@@ -1,5 +1,4 @@
 import p5 from "p5";
-import { setTimeout } from "core-js/library/web/timers";
 
 const appBack = p => {
   let startColor;
